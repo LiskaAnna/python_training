@@ -25,3 +25,9 @@ class Application:
         wd = self.wd
         wd.find_element_by_link_text("home page").click()
 
+    def is_valid(self):
+        try:
+            self.wd.current_url
+            return True
+        except:
+            return False
