@@ -1,15 +1,7 @@
 # -*- coding: utf-8 -*-
 from selenium import webdriver
-import pytest
 from model.contact import Contact
 from fixture.application import Application
-
-
-@pytest.fixture
-def app(request):
-    fixture = Application()
-    request.addfinalizer(fixture.destroy)
-    return fixture
 
 
 def setUp(self):
