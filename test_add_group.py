@@ -11,14 +11,14 @@ class AddGroupTest(unittest.TestCase):
         self.wd.implicitly_wait(30)
 
     def test_add_group(self):
-        self.login(wd, username="admin", password="secret")
-        self.create_group(wd, Group(name="tst", header="tst", footer="tst"))
-        self.logout(wd)
+        self.login(username="admin", password="secret")
+        self.create_group(Group(name="tst", header="tst", footer="tst"))
+        self.logout()
 
     def test_add_empty_group(self):
-        self.login(wd, username="admin", password="secret")
-        self.create_group(wd, Group(name="", header="", footer=""))
-        self.logout(wd)
+        self.login(username="admin", password="secret")
+        self.create_group(Group(name="", header="", footer=""))
+        self.logout()
 
     def logout(self):
         wd = self.wd
