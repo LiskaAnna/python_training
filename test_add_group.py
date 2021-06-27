@@ -20,13 +20,16 @@ class AddGroupTest(unittest.TestCase):
         self.create_group(wd, Group(name="", header="", footer=""))
         self.logout(wd)
 
-    def logout(self, wd):
+    def logout(self):
+        wd = self.wd
         wd.find_element_by_link_text("Logout").click()
 
-    def return_to_groups_page(self, wd):
+    def return_to_groups_page(self):
+        wd = self.wd
         wd.find_element_by_link_text("group page").click()
 
-    def create_group(self, wd, group):
+    def create_group(self, group):
+        wd = self.wd
         self.open_groups_page(wd)
         # init group creation
         wd.find_element_by_name("group_name").click()
@@ -42,10 +45,12 @@ class AddGroupTest(unittest.TestCase):
         self.return_to_groups_page(wd)
 
 
-    def open_groups_page(self, wd):
+    def open_groups_page(self):
+        wd = self.wd
         wd.find_element_by_xpath("//div[@id='content']/form/input[4]").click()
 
-    def login(self, wd, username, password):
+    def login(self, username, password):
+        wd = self.wd
         wd = self.open_home_page()
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
