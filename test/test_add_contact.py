@@ -1,13 +1,5 @@
 # -*- coding: utf-8 -*-
-from selenium import webdriver
 from model.contact import Contact
-from fixture.application import Application
-
-
-def setUp(self):
-    self.app = Application
-    self.wd = webdriver.Firefox()
-    self.wd.implicitly_wait(30)
 
 
 def test_add_new_contact(app):
