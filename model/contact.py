@@ -9,9 +9,9 @@ class Contact:
         self.title = title
         self.company = company
         self.address = address
-        self.home = home_phone
+        self.home_phone = home_phone
         self.mobile = mobile
-        self.work = work_phone
+        self.work_phone = work_phone
         self.fax = fax
         self.email = email
         self.email2 = email2
