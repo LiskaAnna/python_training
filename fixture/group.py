@@ -78,7 +78,7 @@ class GroupHelper:
     def open_groups_page(self):
         wd = self.app.wd
         if not (wd.current_url.endswith("/group.php") and len(wd.find_elements_by_name("new")) > 0):
-            wd.get("http://localhost/addressbook/group.php")
+            wd.get(self.app.base_url + "group.php")
 
     def count(self):
         wd = self.app.wd
