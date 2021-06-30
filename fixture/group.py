@@ -33,21 +33,6 @@ class GroupHelper:
         self.return_to_groups_page()
         self.group_cache = None
 
-    def update_first_group(self):
-        self.update_group_by_index(0)
-
-    def update_group_by_index(self, index, group):
-        wd = self.app.wd
-        self.open_groups_page()
-        self.select_group_by_index(index)
-        # open group for edit
-        wd.find_element_by_name("edit").click()
-        # change group properties
-        self.fill_group_form(group)
-        # save updates
-        wd.find_element_by_name("update").click()
-        self.return_to_groups_page()
-        self.group_cache = None
 
     def fill_group_form(self, group):
         wd = self.app.wd
