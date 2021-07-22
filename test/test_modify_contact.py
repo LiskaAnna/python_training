@@ -1,30 +1,23 @@
 # -*- coding: utf-8 -*-
 from model.contact import Contact
-from random import randrange
+import random
 
-def test_modify_contact_firstname(app):
-    if app.contact.count() == 0:
+def test_modify_contact_firstname(app, db, check_ui):
+    if len(db.get_contact_list()) == 0:
         app.contact.create(Contact(firstname="Ivan", middlename="Ivan", lastname="Ivanov",
                                    nickname="ivanov", title="iv", company="IV", address="iviviv",
                                    home_phone="123", mobile="456", work_phone="789", fax="987",
                                    email="aaa@aa.com", email2="bbb@bb.com", email3="ccc@cc.com",
                                    address2="aaaa", phone2="ssss", notes="dddd"))
-    old_contacts = app.contact.get_contact_list()
-    index = randrange(len(old_contacts))
-    contact = Contact(firstname="New_contact")
-    contact.id = old_contacts[index].id
-    app.contact.modify_contact_by_index(index, contact)
-    assert len(old_contacts) == app.contact.count()
-    new_contacts = app.contact.get_contact_list()
-    old_contacts[index] = contact
+    old_contacts = db.get_contact_list()
+    contact = random.choice(old_contacts)
+    contact1 = Contact(firstname="New_contact")
+    contact1.id = contact.id
+    app.contact.modify_contact_by_id(contact.id, contact1)
+    new_contacts = db.get_contact_list()
+    for element in old_contacts:
+        if element.id == contact.id:
+            element.firstname = contact1.firstname
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
-
-
-#def test_modify_contact_lastname(app):
-#    if app.contact.count() == 0:
-#        app.contact.create(Contact(firstname="Ivan", middlename="Ivan", lastname="Ivanov",
-#                                   nickname="ivanov", title="iv", company="IV", address="iviviv",
-#                                   home_phone="123", mobile="456", work_phone="789", fax="987",
-#                                   email="aaa@aa.com", email2="bbb@bb.com", email3="ccc@cc.com",
-#                                   address2="aaaa", phone2="ssss", notes="dddd"))
-#    app.contact.modify_first_contact(Contact(lastname="New contact"))
+    if check_ui:
+        assert sorted(new_contacts, key=Contact.id_or_max) == sorted(app.contact.get_contact_list(), key=Contact.id_or_max)
