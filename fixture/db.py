@@ -36,6 +36,18 @@ class DbFixture:
             cursor.close()
         return list
 
+    def get_contact_list_by_group(self, groupid):
+        list = []
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute("select id, firstname, lastname from addressbook ab join address_in_groups using (id) where group_id = " + groupid + " and ab.deprecated = '0000-00-00 00:00:0'")
+            for row in cursor:
+                (id, firstname, lastname) = row
+                list.append(Contact(id=str(id), firstname=firstname, lastname=lastname))
+        finally:
+            cursor.close()
+        return list
+
     def get_contact_by_id(self, id):
         cursor = self.connection.cursor()
         try:

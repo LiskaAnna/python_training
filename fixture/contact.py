@@ -1,6 +1,7 @@
 from model.contact import Contact
 import re
 from selenium.webdriver.support.ui import Select
+import time
 
 class ContactHelper:
 
@@ -78,9 +79,9 @@ class ContactHelper:
         self.change_field_value("title", contact.title)
         self.change_field_value("company", contact.company)
         self.change_field_value("address", contact.address)
-        self.change_field_value("home_phone", contact.home_phone)
+        self.change_field_value("home", contact.home_phone)
         self.change_field_value("mobile", contact.mobile)
-        self.change_field_value("work_phone", contact.work_phone)
+        self.change_field_value("work", contact.work_phone)
         self.change_field_value("fax", contact.fax)
         self.change_field_value("email", contact.email)
         self.change_field_value("email2", contact.email2)
@@ -185,3 +186,18 @@ class ContactHelper:
         Select(wd.find_element_by_name("to_group")).select_by_value(groupid)
         # add contact to the group
         wd.find_element_by_name("add").click()
+
+
+    def filter_contacts_by_group(self, groupid):
+        wd = self.app.wd
+        self.app.open_home_page()
+        wd.find_element_by_name("group").click()
+        Select(wd.find_element_by_name("group")).select_by_value(groupid)
+
+
+    def remove_contact_from_group(self, groupid, contactid):
+        wd = self.app.wd
+        self.filter_contacts_by_group(groupid)
+        self.select_contact_by_id(contactid)
+        wd.find_element_by_name("remove").click()
+
