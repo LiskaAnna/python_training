@@ -51,12 +51,12 @@ class DbFixture:
     def get_contact_by_id(self, id):
         cursor = self.connection.cursor()
         try:
-            cursor.execute("select id, firstname, lastname, home, mobile, work, fax, email, email2, email3 from addressbook where id = " + id + " and deprecated = '0000-00-00 00:00:0'")
+            cursor.execute("select id, firstname, lastname, home, mobile, work, phone2, email, email2, email3 from addressbook where id = " + id + " and deprecated = '0000-00-00 00:00:0'")
             for row in cursor:
-                (id, firstname, lastname, home_phone, mobile, work_phone, fax, email, email2, email3) = row
+                (id, firstname, lastname, home_phone, mobile, work_phone, phone2, email, email2, email3) = row
         finally:
             cursor.close()
-        return Contact(id=str(id), firstname=firstname, lastname=lastname, home_phone=home_phone, mobile=mobile, work_phone=work_phone, fax=fax, email=email, email2=email2, email3=email3)
+        return Contact(id=str(id), firstname=firstname, lastname=lastname, home_phone=home_phone, mobile=mobile, work_phone=work_phone, phone2=phone2, email=email, email2=email2, email3=email3)
 
     def check_contact_in_group(self, contactid, groupid):
         cursor = self.connection.cursor()
